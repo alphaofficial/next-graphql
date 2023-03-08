@@ -1,11 +1,33 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { UsersQuery, useUsersQuery } from "@/generated/graphql";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
+
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    useUsersQuery.getKey(),
+    useUsersQuery.fetcher({ limit: 10 })
+  );
+
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+}
 
 export default function Home() {
+  const { isLoading, isError, data } = useUsersQuery<UsersQuery>();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Something went wrong.</div>;
+
   return (
     <>
       <Head>
@@ -26,7 +48,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              By{' '}
+              By{" "}
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
@@ -39,25 +61,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
+        <h1 className="text-6xl font-bold">Hello graphql!</h1>
 
         <div className={styles.grid}>
           <a
@@ -119,5 +123,5 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
+  );
 }
