@@ -1,8 +1,0 @@
-query Todos($limit: Int, $offset: Int) {
-  todos(limit: $limit, offset: $offset) {
-    id
-    user_id
-    task
-    is_completed
-  }
-}

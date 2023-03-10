@@ -3,30 +3,32 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { UsersQuery, useUsersQuery } from "@/generated/graphql";
+import { useUsersQuery } from "@/generated/graphql";
+import { serialize } from "@/utils/serialize";
+import { client } from "@/lib/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export async function getStaticProps() {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(
+export async function getServerSideProps() {
+  await client.prefetchQuery(
     useUsersQuery.getKey(),
     useUsersQuery.fetcher({ limit: 10 })
   );
 
   return {
     props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      dehydratedState: serialize(dehydrate(client)),
     },
   };
 }
 
 export default function Home() {
-  const { isLoading, isError, data } = useUsersQuery<UsersQuery>();
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Something went wrong.</div>;
+  const { data } = useUsersQuery(
+    { limit: 10 },
+    {
+      queryKey: useUsersQuery.getKey(),
+    }
+  );
 
   return (
     <>
