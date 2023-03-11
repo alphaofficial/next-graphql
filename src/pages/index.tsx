@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { dehydrate } from "@tanstack/react-query";
 import { useUsersQuery } from "@/generated/graphql";
 import { serialize } from "@/utils/serialize";
 import { client } from "@/lib/client";
@@ -63,7 +63,9 @@ export default function Home() {
           </div>
         </div>
 
-        <h1 className="text-6xl font-bold">Hello graphql!</h1>
+        <h1 className="text-6xl font-bold" aria-label="heading">
+          Hello graphql!
+        </h1>
 
         <div className={styles.grid}>
           <a
