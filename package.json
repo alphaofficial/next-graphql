@@ -13,7 +13,8 @@
     "ngrok": "ngrok http 3001",
     "test:watch": "jest --watch",
     "test": "jest --forceExit",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
@@ -52,9 +53,17 @@
     "graphql-codegen-apollo-next-ssr": "^1.7.4",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
+    "lint-staged": "^13.2.0",
     "ngrok": "^4.3.3",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
-    "tailwindcss": "^3.2.7"
+    "tailwindcss": "^3.2.7",
+    "husky": "^8.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint",
+      "npm run format"
+    ]
   }
 }
