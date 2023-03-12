@@ -1,3 +1,4 @@
+import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useState } from "react";
 import {
@@ -6,7 +7,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import "@/styles/globals.css";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
@@ -15,7 +16,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
+        <UserProvider>
+          <Component {...pageProps} />
+        </UserProvider>
       </Hydrate>
     </QueryClientProvider>
   );
