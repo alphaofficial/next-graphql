@@ -11,10 +11,26 @@ It supports SSR via React Query Hydrate.
 npm install
 ```
 
-### Development
+## Setup
+
+Run ngrok to get https url for webhooks
 
 ```bash
-npm run dev
+npx ngrok http 3000
+```
+
+Set the https url in the .env file
+
+```bash
+WEBHOOK_BASE_URL='<NGROK_HTTPS_URL>/api'
+```
+
+### Development
+
+This will start the docker container for hasura and postgres, launch the console and start the app
+
+```bash
+npm run start:dev
 ```
 
 ### Production
