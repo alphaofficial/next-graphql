@@ -25,8 +25,9 @@ export default function Home() {
       <div className="bg-white dark:bg-slate-800 px-12 py-8 ring-1 ring-slate-900/5 shadow-xl dark:text-white min-h-screen">
         <div className="space-y-4">
           <h1 aria-label="heading" className="text-4xl font-bold">
-            Welcome to Naruto World!
+            Hajimemashite 👋🏽
           </h1>
+          <p>Welcome to Naruto world</p>
         </div>
 
         <div className="mt-8">
