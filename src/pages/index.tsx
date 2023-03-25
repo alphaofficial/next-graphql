@@ -33,7 +33,7 @@ export default function Home() {
         <div className="mt-8">
           <h2 className="text-2xl font-bold">Characters</h2>
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {!data?.characters?.results?.length && <li>No users found</li>}
+            {!data?.characters?.results?.length && <p>No users found</p>}
             {data?.characters?.results?.map((character) => (
               <div key={character._id}>
                 <div className="group relative">
