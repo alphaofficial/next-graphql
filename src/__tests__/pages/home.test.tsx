@@ -9,6 +9,7 @@ describe("Home page", () => {
       __esModule: true,
       ...originalModule,
       useQuery: jest.fn(),
+      useCharactersByVillageQuery: jest.fn(),
     };
   });
 
