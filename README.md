@@ -108,3 +108,7 @@ Hasura supports migrations via the hasura cli
 Any change you make in the console will automatically generate metadata and migrations in the metadata and migrations folder
 Optionally you can add your custom migration scripts in the migrations folder
 Refer to the docs for more info
+
+## Note
+
+> The database name should be the same as the database name used in development
