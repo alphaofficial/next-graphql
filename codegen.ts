@@ -1,15 +1,18 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
-const { NEXT_PUBLIC_HASURA_GRAPHQL_URL, HASURA_GRAPHQL_ADMIN_SECRET } =
-  process.env;
+const {
+  NEXT_PUBLIC_HASURA_GRAPHQL_PROXY,
+  CODEGEN_SCHEMA,
+  CODEGEN_ADMIN_SECRET,
+} = process.env;
 
 const config: CodegenConfig = {
   overwrite: true,
   schema: [
     {
-      [NEXT_PUBLIC_HASURA_GRAPHQL_URL!]: {
+      [CODEGEN_SCHEMA!]: {
         headers: {
-          "x-hasura-admin-secret": HASURA_GRAPHQL_ADMIN_SECRET!,
+          "x-hasura-admin-secret": CODEGEN_ADMIN_SECRET!,
         },
       },
     },
@@ -23,7 +26,7 @@ const config: CodegenConfig = {
   },
   documents: "src/**/*.graphql",
   generates: {
-    "src/generated/graphql.ts": {
+    "src/client/generated/graphql.ts": {
       plugins: [
         "typescript",
         "typescript-operations",
@@ -39,13 +42,28 @@ const config: CodegenConfig = {
         exposeMutationKeys: true, // We use it as the key for the react query without having to manually give a string.
         exposeFetcher: true, // exposes a fetch to use for SSR,
         fetcher: {
-          endpoint: NEXT_PUBLIC_HASURA_GRAPHQL_URL!,
+          endpoint: NEXT_PUBLIC_HASURA_GRAPHQL_PROXY,
           fetchParams: {
             headers: {
               "Content-Type": "application/json",
-              "x-hasura-admin-secret": HASURA_GRAPHQL_ADMIN_SECRET!,
             },
           },
+        },
+      },
+    },
+    "src/serverless/generated/server-sdk.ts": {
+      plugins: [
+        "typescript",
+        "typescript-operations",
+        "typescript-graphql-request",
+      ],
+      config: {
+        skipTypename: true,
+        scalars: {
+          Date: "string",
+          ObjectID: "string",
+          timestamptz: "string",
+          uuid: "string",
         },
       },
     },
