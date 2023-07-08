@@ -41,14 +41,7 @@ const config: CodegenConfig = {
         exposeQueryKeys: true, // We use it as the key for the react query without having to manually give a string.
         exposeMutationKeys: true, // We use it as the key for the react query without having to manually give a string.
         exposeFetcher: true, // exposes a fetch to use for SSR,
-        fetcher: {
-          endpoint: NEXT_PUBLIC_HASURA_GRAPHQL_PROXY,
-          fetchParams: {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
-        },
+        fetcher: "@/client/lib/fetcher#fetcher",
       },
     },
     "src/serverless/generated/server-sdk.ts": {

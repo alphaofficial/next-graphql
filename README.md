@@ -1,7 +1,8 @@
-# Next JS with Hasura GraphQL + React Query template
+<img src="bg.jpg" />
 
-This is a template for Next.js + Tailwind + Hasura GraphQL + React Query + TypeScript.
-It supports SSR via React Query Hydrate.
+# NextJS, Hasura GraphQL, React Query template
+
+A fullstack template with Next.js, Hasura GraphQL, React Query, Tailwind.
 
 ## Getting Started
 
