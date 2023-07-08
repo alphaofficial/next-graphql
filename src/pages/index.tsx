@@ -1,25 +1,42 @@
 import { dehydrate } from "@tanstack/react-query";
-import { useCharactersByVillageQuery } from "@/client/generated/graphql";
+import {
+  CharactersByVillageDocument,
+  CharactersByVillageQuery,
+  useCharactersByVillageQuery,
+} from "@/client/generated/graphql";
 import { serialize } from "@/common/utils/serialize";
 import { client } from "@/client/lib/client";
 import PageLayout from "@/client/layout/page-layout";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { graphQLClient } from "@/serverless/lib/client";
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps<{
+  data: CharactersByVillageQuery;
+  dehydratedState: unknown;
+}> = async () => {
   await client.prefetchQuery(
     useCharactersByVillageQuery.getKey({ village: "leaf" }),
     useCharactersByVillageQuery.fetcher({ village: "leaf" })
   );
 
+  const data = await graphQLClient.request<CharactersByVillageQuery>(
+    CharactersByVillageDocument,
+    {
+      village: "leaf",
+    }
+  );
+
   return {
     props: {
+      data,
       dehydratedState: serialize(dehydrate(client)),
     },
   };
-}
+};
 
-export default function Home() {
-  const { data } = useCharactersByVillageQuery({ village: "leaf" });
-
+export default function Home({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <PageLayout>
       <div className="bg-white dark:bg-slate-800 px-12 py-8 ring-1 ring-slate-900/5 shadow-xl dark:text-white min-h-screen">
