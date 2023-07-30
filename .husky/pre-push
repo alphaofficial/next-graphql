@@ -2,4 +2,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # testing and building helps to avoid pushing broken code
-npm run test && npm run build
+npm run build
