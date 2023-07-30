@@ -2,15 +2,15 @@ version: "3.8"
 services:
   postgres:
     container_name: template_postgres
-    image: postgres:12
+    image: postgres:14
     restart: always
     environment:
       POSTGRES_PASSWORD: "${PG_PASSWORD}"
     ports:
       - "5432:5432"
   graphql-engine:
-    container_name: template__graphql_engine
-    image: hasura/graphql-engine:v2.21.0
+    container_name: template_graphql_engine
+    image: hasura/graphql-engine:v2.30.1
     ports:
       - "8080:8080"
     depends_on:
@@ -28,3 +28,5 @@ services:
       HASURA_GRAPHQL_ACTIONS_BASE_URL: "${HASURA_GRAPHQL_ACTIONS_BASE_URL}"
       HASURA_GRAPHQL_DEFAULT_NAMING_CONVENTION: "graphql-default"
       HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: "naming_convention"
+      HASURA_GRAPHQL_METADATA_DIRECTORY: "hasura/metadata"
+      HASURA_GRAPHQL_MIGRATIONS_DIRECTORY: "hasura/migrations"

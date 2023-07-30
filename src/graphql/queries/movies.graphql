@@ -1,0 +1,10 @@
+query listMovies {
+  movies {
+    id
+    image
+    title
+    year
+    description
+    genres
+  }
+}
