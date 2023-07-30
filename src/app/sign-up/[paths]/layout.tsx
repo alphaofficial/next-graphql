@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 
-export const Layout: FC<{ children: ReactNode }> = ({ children }) => (
+const Layout: FC<{ children: ReactNode }> = ({ children }) => (
   <main className="font-sans">
     <div className="max-h-screen">
       <div className="w-full">
@@ -11,3 +11,5 @@ export const Layout: FC<{ children: ReactNode }> = ({ children }) => (
     </div>
   </main>
 );
+
+export default Layout;
