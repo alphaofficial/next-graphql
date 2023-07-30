@@ -67,6 +67,28 @@ Populate the .env file with your environment variables
 docker-compose up -d
 ```
 
+Open the console
+
+```bash
+    npm run console
+```
+
+Setup the console, add your tables and relationships
+
+Create you first migration
+
+```bash
+    npm run migration:initial
+```
+
+Export the metada from the console
+
+```bash
+    npm run metadata:export
+```
+
+Add your graphql queries and mutations in the graphql folder
+
 Start the application
 
 ```bash
@@ -83,7 +105,7 @@ Launch the hasura console
 npm run console
 ```
 
-The console should now be available at http://localhost:9695
+The console should now be available at http://localhost:8081
 
 Unit tests
 

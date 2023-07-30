@@ -2,9 +2,11 @@
 import { GraphQLClient } from "graphql-request";
 import { getSdk } from "@/.generated/graphql-sdk";
 
-export const graphQLClient = new GraphQLClient("", {
+const { GRAPHQL_URL, GRAPHQL_ADMIN_SECRET } = process.env;
+
+export const graphQLClient = new GraphQLClient(GRAPHQL_URL!, {
   headers: {
-    "x-hasura-admin-secret": "",
+    "x-hasura-admin-secret": GRAPHQL_ADMIN_SECRET!,
   },
 });
 

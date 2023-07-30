@@ -1,0 +1,9 @@
+query listCustomers {
+  customer {
+    email
+    firstName
+    id
+    lastName
+    ipAddress
+  }
+}
