@@ -1,0 +1,12 @@
+- name: pool
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: PG_DATABASE_URL
+      isolation_level: read-committed
+      pool_settings:
+        connection_lifetime: 600
+        retries: 3
+      use_prepared_statements: false
+  tables: "!include pool/tables/tables.yaml"
