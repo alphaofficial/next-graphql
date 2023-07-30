@@ -1,10 +1,6 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
-const {
-  NEXT_PUBLIC_HASURA_GRAPHQL_PROXY,
-  CODEGEN_SCHEMA,
-  CODEGEN_ADMIN_SECRET,
-} = process.env;
+const { CODEGEN_SCHEMA, CODEGEN_ADMIN_SECRET } = process.env;
 
 const config: CodegenConfig = {
   overwrite: true,
@@ -26,7 +22,7 @@ const config: CodegenConfig = {
   },
   documents: "src/**/*.graphql",
   generates: {
-    "src/client/generated/graphql.ts": {
+    "src/.generated/graphql-hooks.ts": {
       plugins: [
         "typescript",
         "typescript-operations",
@@ -44,7 +40,7 @@ const config: CodegenConfig = {
         fetcher: "@/client/lib/fetcher#fetcher",
       },
     },
-    "src/serverless/generated/server-sdk.ts": {
+    "src/.generated/graphql-sdk.ts": {
       plugins: [
         "typescript",
         "typescript-operations",
